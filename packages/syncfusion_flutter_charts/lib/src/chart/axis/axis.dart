@@ -2167,6 +2167,10 @@ class ChartAxisRendererDetails {
     double betweenTickPositionValue = 0.0;
     late double tempInterval, pointX, pointY;
     int length = visibleLabels.length;
+    if (axis.edgeLabelPlacement == EdgeLabelPlacement.hideEnd && 
+        visibleRange?.interval != 1) {
+      length = visibleLabels.length - 1;
+    }
     if (length > 0) {
       final MajorTickLines ticks = axis.majorTickLines;
       final bool isBetweenTicks =
@@ -3144,6 +3148,22 @@ class ChartAxisRendererDetails {
             continue;
           } else if ((axis.labelAlignment == LabelAlignment.start) &&
               (i == 0 || (i == visibleLabels.length - 1 && axis.isInversed))) {
+            visibleLabels[i]._needRender = false;
+            continue;
+          }
+        } else if (axis.edgeLabelPlacement == EdgeLabelPlacement.hideEnd && 
+              visibleRange?.interval != 1) {
+          if (axis.labelAlignment == LabelAlignment.center) {
+            if (i == visibleLabels.length - 1) {
+              visibleLabels[i]._needRender = false;
+              continue;
+            }
+          } else if ((axis.labelAlignment == LabelAlignment.end) &&
+              i == visibleLabels.length - 1) {
+            visibleLabels[i]._needRender = false;
+            continue;
+          } else if ((axis.labelAlignment == LabelAlignment.start) &&
+              i == visibleLabels.length - 1 && axis.isInversed) {
             visibleLabels[i]._needRender = false;
             continue;
           }

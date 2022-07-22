@@ -120,8 +120,11 @@ enum EdgeLabelPlacement {
   /// - EdgeLabelPlacement.none, places the edge labels in its own position.
   none,
 
-  /// - EdgeLabelPlacement.hides, hide the edge labels.
+  /// - EdgeLabelPlacement.hide, hide the edge labels.
   hide,
+
+  /// - EdgeLabelPlacement.hideEnd, hide the end edge label.
+  hideEnd,
 
   /// - EdgeLabelPlacement.shift, shift the edge labels inside the plot area bounds.
   shift
